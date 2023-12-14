@@ -3,7 +3,7 @@ package menu.model.menu.food
 import menu.model.menu.Menu
 
 enum class KoreanFood(val names: List<String>) : Menu {
-    MENU(listOf("깐풍기", "볶음면", "동파육", "짜장면", "짬뽕", "마파두부", "탕수육", "토마토 달걀볶음", "고추잡채")) {
+    MENU(listOf("김밥", "김치찌개", "쌈밥", "된장찌개", "비빔밥", "칼국수", "불고기", "떡볶이", "제육볶음")) {
         override fun getMenus(): List<String> {
             return names
         }
