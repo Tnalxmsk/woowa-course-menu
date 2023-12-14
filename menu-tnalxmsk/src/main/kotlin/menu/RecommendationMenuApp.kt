@@ -38,15 +38,16 @@ class RecommendationMenuApp(
         Week.entries.forEach { week ->
             val category = CategoryRecommender.recommendCategory()
             recommendationCategory[week.title] = category
-            val menu = recommendMenu(category)
-            coaches.addMenu(menu, coachWithMenus)
+            recommendMenu(coaches, category, coachWithMenus)
         }
         return ResultChart(recommendationCategory, coachWithMenus)
     }
 
-    private fun recommendMenu(category: String): String {
-        val menus = Category.getMenus(category)
-        val menu = MenuRecommender.recommendMenu(menus)
-        return menu
+    private fun recommendMenu(
+        coaches: List<Coach>,
+        category: String,
+        menuTable: Map<String, MutableList<String>>
+    ) {
+        coaches.addMenu(category, menuTable)
     }
 }
