@@ -21,6 +21,7 @@ class InputView {
         try {
             println(INPUT_COACH_WORST_MENU.format(name))
             val input = Console.readLine()
+            InputValidation.validateHateMenu(input)
             println()
             val menu = input.split(SPLIT_DELIMITERS)
             return menu
