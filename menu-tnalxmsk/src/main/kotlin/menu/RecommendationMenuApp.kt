@@ -1,6 +1,8 @@
 package menu
 
+import menu.extension.toCoachNameTable
 import menu.model.Coach
+import menu.model.ResultChart
 import menu.model.menu.Category
 import menu.model.menu.Week
 import menu.util.CategoryRecommender
@@ -16,6 +18,7 @@ class RecommendationMenuApp(
         outputView.printServiceStart()
         val coaches = createCoaches()
         val recommendationCategoryWithMenu = startRecommendation(coaches)
+        outputView.printServiceEnd(recommendationCategoryWithMenu)
     }
 
     private fun createCoaches(): List<Coach> {
@@ -27,24 +30,23 @@ class RecommendationMenuApp(
         return coaches
     }
 
-    private fun startRecommendation(coaches: List<Coach>): List<MutableMap<String, out Any>> {
+    private fun startRecommendation(coaches: List<Coach>): ResultChart {
         val recommendationCategory = mutableMapOf<String, String>()
-        val recommendationMenus = mutableMapOf<String, Map<String, String>>()
+        val recommendationMenus = coaches.toCoachNameTable()
+
         Week.entries.forEach { week ->
             val category = CategoryRecommender.recommendCategory()
             recommendationCategory[week.title] = category
-            recommendationMenus[week.title] = recommendMenu(category, coaches)
+            coaches.forEach { coach ->
+                recommendationMenus[coach.name]!!.add(recommendMenu(category))
+            }
         }
-        return listOf(recommendationCategory, recommendationMenus)
+        return ResultChart(recommendationCategory, recommendationMenus)
     }
 
-    private fun recommendMenu(category: String, coaches: List<Coach>): Map<String, String> {
-        val coachesMenu = mutableMapOf<String, String>()
+    private fun recommendMenu(category: String): String {
         val menus = Category.getMenus(category)
-        coaches.forEach { coach ->
-            val menu = MenuRecommender.recommendMenu(menus)
-            coachesMenu[coach.name] = menu
-        }
-        return coachesMenu
+        val menu = MenuRecommender.recommendMenu(menus)
+        return menu
     }
 }
