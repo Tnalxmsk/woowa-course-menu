@@ -1,14 +1,14 @@
 package menu.view
 
 import camp.nextstep.edu.missionutils.Console
-import menu.validation.InputValidation
+import menu.validation.InputValidator
 
 class InputView {
     fun readCoachName(): List<String> {
         try {
             println(INPUT_COACH_NAME)
             val input = Console.readLine()
-            InputValidation.validateNames(input)
+            InputValidator.validateNames(input)
             println()
             return input.split(SPLIT_DELIMITERS)
         } catch (e: IllegalArgumentException) {
@@ -21,7 +21,7 @@ class InputView {
         try {
             println(INPUT_COACH_WORST_MENU.format(name))
             val input = Console.readLine()
-            InputValidation.validateHateMenu(input)
+            InputValidator.validateHateMenu(input)
             println()
             val menu = input.split(SPLIT_DELIMITERS)
             return menu
