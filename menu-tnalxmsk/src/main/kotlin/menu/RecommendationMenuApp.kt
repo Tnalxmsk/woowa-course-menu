@@ -4,10 +4,8 @@ import menu.extension.addMenu
 import menu.extension.toCoachNameTable
 import menu.model.Coach
 import menu.model.ResultChart
-import menu.model.menu.Category
 import menu.model.menu.Week
 import menu.util.CategoryRecommender
-import menu.util.MenuRecommender
 import menu.view.InputView
 import menu.view.OutputView
 
@@ -23,7 +21,7 @@ class RecommendationMenuApp(
     }
 
     private fun createCoaches(): List<Coach> {
-        val names = inputView.raedCoachName()
+        val names = inputView.readCoachName()
         val coaches = names.map { name ->
             val hateMenu = inputView.readHateMenu(name)
             Coach(name, hateMenu)

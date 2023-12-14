@@ -1,23 +1,33 @@
 package menu.view
 
 import camp.nextstep.edu.missionutils.Console
+import menu.validation.InputValidation
 
 class InputView {
-    fun raedCoachName(): List<String> {
-        println(INPUT_COACH_NAME)
-        val input = Console.readLine()
-        println()
-        val names = input.split(SPLIT_DELIMITERS)
-        return names
+    fun readCoachName(): List<String> {
+        try {
+            println(INPUT_COACH_NAME)
+            val input = Console.readLine()
+            InputValidation.validateNames(input)
+            println()
+            return input.split(SPLIT_DELIMITERS)
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+            return readCoachName()
+        }
     }
 
     fun readHateMenu(name: String): List<String> {
-        println(INPUT_COACH_WORST_MENU.format(name))
-        val input = Console.readLine()
-        println()
-
-        val menu = input.split(SPLIT_DELIMITERS)
-        return menu
+        try {
+            println(INPUT_COACH_WORST_MENU.format(name))
+            val input = Console.readLine()
+            println()
+            val menu = input.split(SPLIT_DELIMITERS)
+            return menu
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+            return readHateMenu(name)
+        }
     }
 
     companion object {
