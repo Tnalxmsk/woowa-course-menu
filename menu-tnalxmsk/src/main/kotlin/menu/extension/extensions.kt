@@ -15,7 +15,7 @@ fun List<Coach>.toCoachNameTable(): Map<String, MutableList<String>> {
 fun List<Coach>.addMenu(category: String, menuTable: Map<String, MutableList<String>>) {
     this.forEach { coach ->
         val menus = Category.getMenus(category)
-        val menu = MenuRecommender.recommendMenu(menus)
+        val menu = MenuRecommender.recommendMenu(menus, coach.hateMenu)
         menuTable[coach.name]!!.add(menu)
     }
 }
