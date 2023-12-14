@@ -8,6 +8,6 @@ class RecommendationMenuApp(
     private val outputView: OutputView
 ) {
     fun startRecommendationMenu() {
-
+        outputView.printServiceStart()
     }
 }
