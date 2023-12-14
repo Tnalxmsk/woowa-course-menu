@@ -36,11 +36,24 @@ class RecommendationMenuApp(
         val coachWithMenus = coaches.toCoachNameTable()
 
         Week.entries.forEach { week ->
-            val category = CategoryRecommender.recommendCategory()
-            recommendationCategory[week.title] = category
-            recommendMenu(coaches, category, coachWithMenus)
+            recommendWeekCategory(week, coaches, recommendationCategory, coachWithMenus)
         }
         return ResultChart(recommendationCategory, coachWithMenus)
+    }
+
+    private fun recommendWeekCategory(
+        week: Week,
+        coaches: List<Coach>,
+        recommendationCategory: MutableMap<String, String>,
+        coachWithMenus: Map<String, MutableList<String>>
+    ) {
+        while (true) {
+            val category = CategoryRecommender.recommendCategory()
+            if (recommendationCategory.values.count { it == category } == 2) continue
+            recommendationCategory[week.title] = category
+            recommendMenu(coaches, category, coachWithMenus)
+            break
+        }
     }
 
     private fun recommendMenu(
