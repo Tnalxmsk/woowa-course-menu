@@ -19,3 +19,7 @@ fun List<Coach>.addMenu(category: String, menuTable: Map<String, MutableList<Str
         menuTable[coach.name]!!.add(menu)
     }
 }
+
+fun <T> Collection<T>.joinPipeString(): String {
+    return this.joinToString(" | ");
+}

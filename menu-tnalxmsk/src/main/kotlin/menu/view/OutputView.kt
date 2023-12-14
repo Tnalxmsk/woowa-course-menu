@@ -1,5 +1,6 @@
 package menu.view
 
+import menu.extension.joinPipeString
 import menu.model.ResultChart
 
 class OutputView {
@@ -15,10 +16,10 @@ class OutputView {
     private fun printRecommendationServiceDetails(resultChart: ResultChart, ) {
         val category = resultChart.recommendationCategory
         val menus = resultChart.recommendationMenus
-        println(OUTPUT_WEEK_FORMAT.format(category.keys.joinToString(" | ")))
-        println(OUTPUT_CATEGORY_FORMAT.format(category.values.joinToString(" | ")))
+        println(OUTPUT_WEEK_FORMAT.format(category.keys.joinPipeString()))
+        println(OUTPUT_CATEGORY_FORMAT.format(category.values.joinPipeString()))
         menus.forEach {
-            println(OUTPUT_DETAILS_FORMAT.format(it.key, it.value.joinToString(" | ")))
+            println(OUTPUT_DETAILS_FORMAT.format(it.key, it.value.joinPipeString()))
         }
     }
 
