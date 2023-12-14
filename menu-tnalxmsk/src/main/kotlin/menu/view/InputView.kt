@@ -6,6 +6,7 @@ class InputView {
     fun raedCoachName(): List<String> {
         println(INPUT_COACH_NAME)
         val input = Console.readLine()
+        println()
         val names = input.split(SPLIT_DELIMITERS)
         return names
     }
