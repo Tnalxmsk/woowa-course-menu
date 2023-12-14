@@ -9,3 +9,9 @@ fun List<Coach>.toCoachNameTable(): Map<String, MutableList<String>> {
     }
     return recommendationMenus
 }
+
+fun List<Coach>.addMenu(menu: String, menuTable: Map<String, MutableList<String>>) {
+    this.forEach { coach ->
+        menuTable[coach.name]!!.add(menu)
+    }
+}

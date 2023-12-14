@@ -1,5 +1,6 @@
 package menu
 
+import menu.extension.addMenu
 import menu.extension.toCoachNameTable
 import menu.model.Coach
 import menu.model.ResultChart
@@ -32,16 +33,15 @@ class RecommendationMenuApp(
 
     private fun startRecommendation(coaches: List<Coach>): ResultChart {
         val recommendationCategory = mutableMapOf<String, String>()
-        val recommendationMenus = coaches.toCoachNameTable()
+        val coachWithMenus = coaches.toCoachNameTable()
 
         Week.entries.forEach { week ->
             val category = CategoryRecommender.recommendCategory()
             recommendationCategory[week.title] = category
-            coaches.forEach { coach ->
-                recommendationMenus[coach.name]!!.add(recommendMenu(category))
-            }
+            val menu = recommendMenu(category)
+            coaches.addMenu(menu, coachWithMenus)
         }
-        return ResultChart(recommendationCategory, recommendationMenus)
+        return ResultChart(recommendationCategory, coachWithMenus)
     }
 
     private fun recommendMenu(category: String): String {
